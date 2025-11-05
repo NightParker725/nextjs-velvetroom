@@ -63,6 +63,7 @@ export default function Navbar() {
       case 'seller':
         return (
           <>
+            <Link href="/products" className="vr-btn">🛍 Productos</Link>
             <Link href="/my-products" className="vr-btn">📦 Mis productos</Link>
             <Link href="/orders" className="vr-btn">🛒 Órdenes</Link>
           </>

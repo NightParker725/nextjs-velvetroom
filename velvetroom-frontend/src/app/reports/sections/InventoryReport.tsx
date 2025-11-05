@@ -2,7 +2,9 @@
 'use client';
 import { useEffect, useState } from "react";
 import api from "@/services/api";
+import { Pie } from "react-chartjs-2";
 import { motion } from "framer-motion";
+import { chartColors } from "@/lib/chartConfig";
 
 export default function InventoryReport() {
   const [data, setData] = useState<any>(null);
@@ -25,14 +27,30 @@ export default function InventoryReport() {
         ))}
       </div>
 
-      <h2 className="vr-title" style={{ marginTop: 32 }}>Categorías más vendidas</h2>
-      <div className="vr-card" style={{ marginTop: 16 }}>
-        {data.categoriesPopularity.map((c:any)=>(
-          <div key={c.category_id} className="vr-line">
-            {c.category_name} — {c.units_sold} uds vendidas
-          </div>
-        ))}
-      </div>
+      <h2 className="vr-title" style={{ marginTop: 40 }}>Categorías más vendidas</h2>
+<div className="vr-card" style={{ padding: 20, marginTop: 20 }}>
+
+  <Pie
+    data={{
+      labels: data.categoriesPopularity.map((c:any) => c.category_name),
+      datasets: [
+        {
+          data: data.categoriesPopularity.map((c:any) => c.units_sold),
+          backgroundColor: [
+            chartColors.fill,
+            "rgba(80,130,255,0.25)",
+            "rgba(255,80,180,0.25)",
+            "rgba(120,255,120,0.25)",
+            "rgba(255,200,80,0.25)",
+          ],
+          borderColor: chartColors.line,
+        }
+      ]
+    }}
+  />
+
+</div>
+
     </motion.div>
   );
 }

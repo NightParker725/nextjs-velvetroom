@@ -5,12 +5,14 @@ import SalesReport from "./sections/SalesReport";
 import InventoryReport from "./sections/InventoryReport";
 import UsersReport from "./sections/UsersReport";
 import { button } from "motion/react-client";
+import { downloadFullReport } from "@/services/reports";
+import { toast } from "sonner";
 
 export default function ReportsPage() {
   const [tab, setTab] = useState<'sales' | 'inventory' | 'users'>('sales');
 
   return (
-    <RoleGate roles={['admin', 'seller']}>
+    <RoleGate roles={['admin']}>
       <div style={{ padding: 32 }}>
         <h1 className="vr-title" style={{ textAlign: 'center' }}>📊 Reportes</h1>
 
@@ -22,12 +24,9 @@ export default function ReportsPage() {
             Inventario
           </button>
 
-          {/* Solo los admins ven este */}
-          <RoleGate roles={['admin']}>
             <button className="vr-btn" onClick={() => setTab('users')}>
               Usuarios
             </button>
-          </RoleGate>
         </div>
 
         <div style={{ marginTop: 40 }}>
@@ -36,6 +35,22 @@ export default function ReportsPage() {
           {tab === 'users' && <UsersReport />}
         </div>
       </div>
+    <div style={{ padding: 24 , textAlign: 'center' }}>
+        <button
+            className="vr-btn"
+            style={{ marginTop: 20 }}
+            onClick={async () => {
+            try {
+                await downloadFullReport();
+                toast.success('Reporte generado correctamente');
+            } catch {
+                toast.error('No se pudo generar el reporte');
+            }
+            }}
+        >
+            Descargar Reporte Consolidado (PDF)
+        </button>
+        </div>
     </RoleGate>
   );
 }
