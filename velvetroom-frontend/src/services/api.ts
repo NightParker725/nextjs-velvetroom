@@ -2,7 +2,7 @@ import axios from 'axios';
 import { softLogout } from '@/services/auth';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.API_URL || 'http://localhost:3000/api',
   withCredentials: false,
 });
 
