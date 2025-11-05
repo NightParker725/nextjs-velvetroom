@@ -29,7 +29,6 @@ function AppContent({ children }: { children: React.ReactNode }) {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      {/* 👇 suprime diferencias entre SSR y cliente */}
       <body suppressHydrationWarning={true}>
         <AuthProvider>
           <AppContent>{children}</AppContent>
