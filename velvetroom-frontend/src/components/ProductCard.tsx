@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
       }}
     >
       <img
-        src={product.productUrl || '/placeholder-product.png'}
+        src={product.productUrl || '/product.png'}
         alt={product.name}
         style={{
           width: '100%',

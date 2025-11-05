@@ -41,10 +41,10 @@ export default function Navbar() {
       case 'admin':
         return (
           <>
-            <Link href="/users" className="vr-btn">👥 Usuarios</Link>
-            <Link href="/categories" className="vr-btn">🏷 Categorías</Link>
-            <Link href="/products" className="vr-btn">📦 Productos</Link>
-            <Link href="/reports" className="vr-btn">📊 Reportes</Link>
+            <Link href="/admin/users" className="vr-btn">👥 Gestionar Usuarios</Link>
+            <Link href="/categories" className="vr-btn">🏷 Gestionar Categorías</Link>
+            <Link href="/admin/products" className="vr-btn">📦 Gestionar productos</Link>
+            <Link href="/reports" className="vr-btn">📊 Ver Reportes</Link>
           </>
         );
       case 'seller':

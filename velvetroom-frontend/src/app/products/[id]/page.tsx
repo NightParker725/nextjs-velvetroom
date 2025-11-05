@@ -4,11 +4,13 @@ import { getProductById, Product } from '@/services/products';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (id) {
@@ -40,6 +42,15 @@ export default function ProductDetailPage() {
       style={{ maxWidth: 800, margin: '40px auto', padding: 24 }}
     >
       <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+        
+        <button
+        onClick={() => router.back()}
+        className="vr-btn"
+        style={{ background: 'rgba(212,175,55,0.15)', marginBottom: 12 }}
+        >
+        ← Volver
+        </button>
+
         <img
           src={product.productUrl || '/placeholder-product.png'}
           alt={product.name}

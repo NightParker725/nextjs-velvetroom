@@ -5,7 +5,7 @@ export default function UsersPage() {
     <RoleGate roles={['admin']}>
       <div className="vr-card" style={{ marginTop: 20 }}>
         <h1 className="vr-title">Gestión de usuarios</h1>
-        <p>Solo visible para administradores.</p>
+        <p>Solo visible para administradores. Sal de este Plano!</p>
       </div>
     </RoleGate>
   );

@@ -1,102 +1,197 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useEffect, useState } from 'react';
-import { CreateProductDto, getDistinctCategories } from '@/services/products';
-import { toast } from 'sonner';
+import { getCategories } from '@/services/categories';
 
-interface Props {
-  initialData?: Partial<CreateProductDto>;
-  onSubmit: (data: CreateProductDto) => Promise<void>;
+export default function ProductForm({
+  initialData,
+  onSubmit,
+  submitLabel = 'Guardar',
+}: {
+  initialData?: any;
+  onSubmit: (data: any) => void;
   submitLabel?: string;
-}
-
-export default function ProductForm({ initialData, onSubmit, submitLabel }: Props) {
-  const [form, setForm] = useState<CreateProductDto>({
-    name: initialData?.name || '',
-    description: initialData?.description || '',
-    price_cents: initialData?.price_cents || 0,
-    stock: initialData?.stock || 0,
-    productUrl: initialData?.productUrl || '',
-    categoryId: initialData?.categoryId || '',
-    condition: initialData?.condition || 'new',
+}) {
+  const [categories, setCategories] = useState<any[]>([]);
+  const [form, setForm] = useState({
+    name: '',
+    description: '',
+    price_cents: 0,
+    stock: 0,
+    productUrl: '',
+    categoryId: '',
+    condition: 'new',
   });
 
-  const [categories, setCategories] = useState<{ category: string; count: number }[]>([]);
-
   useEffect(() => {
-    getDistinctCategories().then(setCategories);
+    getCategories().then(setCategories);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+  // ✅ Cargar datos iniciales si se está editando
+  useEffect(() => {
+    if (initialData) {
+      setForm({
+        name: initialData.name ?? '',
+        description: initialData.description ?? '',
+        price_cents: initialData.price_cents ?? 0,
+        stock: initialData.stock ?? 0,
+        productUrl: initialData.productUrl ?? '',
+        categoryId: initialData.category?.id ?? '',
+        condition: initialData.condition ?? 'new',
+      });
+    }
+  }, [initialData]);
+
+  const handleChange = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    try {
-      await onSubmit(form);
-    } catch {
-      toast.error('No se pudo guardar el producto');
-    }
+    onSubmit(form);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="vr-card" style={{ padding: 24, display: 'grid', gap: 12 }}>
-      <input
-        className="vr-input"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        placeholder="Nombre del producto"
-      />
-      <input
-        className="vr-input"
-        name="description"
-        value={form.description}
-        onChange={handleChange}
-        placeholder="Descripción"
-      />
-      <input
-        className="vr-input"
-        type="number"
-        name="price_cents"
-        value={form.price_cents}
-        onChange={handleChange}
-        placeholder="Precio (centavos)"
-      />
-      <input
-        className="vr-input"
-        type="number"
-        name="stock"
-        value={form.stock}
-        onChange={handleChange}
-        placeholder="Stock disponible"
-      />
-      <input
-        className="vr-input"
-        name="productUrl"
-        value={form.productUrl}
-        onChange={handleChange}
-        placeholder="URL de imagen del producto"
-      />
+    <form
+      onSubmit={handleSubmit}
+      className="vr-card"
+      style={{
+        display: 'grid',
+        gap: 18,
+        padding: 24,
+        maxWidth: 600,
+        margin: '0 auto',
+      }}
+    >
+      <h2 className="vr-title" style={{ textAlign: 'center' }}>
+        Información del producto
+      </h2>
 
-      <select className="vr-input" name="categoryId" value={form.categoryId} onChange={handleChange}>
-        <option value="">Selecciona una categoría</option>
-            {categories.map((c, idx) => (
-            <option key={idx} value={c.id || idx}>
-                {c.category}
+      {/* 🏷️ Datos básicos */}
+      <div>
+        <h3 style={{ marginBottom: 6 }}>Nombre y descripción</h3>
+        <input
+          className="vr-input"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Nombre del producto"
+          required
+        />
+        <textarea
+          className="vr-input"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Descripción"
+          style={{ marginTop: 8 }}
+        />
+      </div>
+
+      {/* 💰 Precio y stock */}
+      <div>
+        <h3 style={{ marginBottom: 6 }}>Precio y stock</h3>
+        <input
+          className="vr-input"
+          name="price_cents"
+          type="number"
+          value={form.price_cents}
+          onChange={handleChange}
+          placeholder="Precio (en centavos)"
+          required
+        />
+        <input
+          className="vr-input"
+          name="stock"
+          type="number"
+          value={form.stock}
+          onChange={handleChange}
+          placeholder="Cantidad disponible en inventario"
+          style={{ marginTop: 8 }}
+          required
+        />
+      </div>
+
+      {/* 🖼️ Imagen */}
+      <div>
+        <h3 style={{ marginBottom: 6 }}>Imagen del producto</h3>
+        <input
+          className="vr-input"
+          name="productUrl"
+          value={form.productUrl}
+          onChange={handleChange}
+          placeholder="URL de imagen (opcional)"
+        />
+
+        {/* 👁️ Vista previa dinámica */}
+        {form.productUrl && (
+          <div
+            style={{
+              marginTop: 10,
+              textAlign: 'center',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 8,
+              padding: 10,
+              background: 'rgba(255,255,255,0.02)',
+            }}
+          >
+            <img
+              src={form.productUrl}
+              alt="Vista previa del producto"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+              style={{
+                maxWidth: '100%',
+                maxHeight: 200,
+                borderRadius: 8,
+                objectFit: 'contain',
+              }}
+            />
+            <p style={{ fontSize: 12, color: '#aaa', marginTop: 6 }}>
+              Vista previa generada desde la URL proporcionada.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* 🗂️ Categoría */}
+      <div>
+        <h3 style={{ marginBottom: 6 }}>Categoría</h3>
+        <select
+          className="vr-input"
+          name="categoryId"
+          value={form.categoryId}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Selecciona una categoría</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
             </option>
-            ))}
-      </select>
+          ))}
+        </select>
+      </div>
 
-      <select className="vr-input" name="condition" value={form.condition} onChange={handleChange}>
-        <option value="new">Nuevo</option>
-        <option value="fan_made">Fan-Made</option>
-        <option value="used">Usado</option>
-      </select>
+      {/* ⚙️ Estado del producto */}
+      <div>
+        <h3 style={{ marginBottom: 6 }}>Condición del producto</h3>
+        <select
+          className="vr-input"
+          name="condition"
+          value={form.condition}
+          onChange={handleChange}
+        >
+          <option value="new">Nuevo</option>
+          <option value="fan_made">Hecho por fans</option>
+          <option value="used">Usado</option>
+        </select>
+      </div>
 
-      <button type="submit" className="vr-btn" style={{ marginTop: 8 }}>
-        {submitLabel || 'Guardar producto'}
+      <button className="vr-btn" type="submit" style={{ marginTop: 16 }}>
+        {submitLabel}
       </button>
     </form>
   );

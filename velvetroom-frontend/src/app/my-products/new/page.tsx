@@ -18,6 +18,13 @@ export default function NewProductPage() {
   return (
     <RoleGate roles={['admin', 'seller']}>
       <div style={{ maxWidth: 600, margin: '40px auto' }}>
+        <button
+            onClick={() => router.back()}
+            className="vr-btn"
+            style={{ background: 'rgba(212,175,55,0.15)', marginBottom: 12 }}
+            >
+            ← Volver
+        </button>
         <h1 className="vr-title" style={{ textAlign: 'center' }}>
           Nuevo Producto
         </h1>

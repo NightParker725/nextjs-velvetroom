@@ -1,25 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useEffect, useState } from 'react';
 import { getAllProducts, Product } from '@/services/products';
 import ProductCard from './ProductCard';
 import { motion } from 'framer-motion';
 
-export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getAllProducts()
-      .then(setProducts)
-      .catch((err) => console.error('Error cargando productos:', err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading)
-    return <p style={{ textAlign: 'center', marginTop: 40 }}>Invocando los tesoros de la Velvet Room...</p>;
-
-  if (products.length === 0)
-    return <p style={{ textAlign: 'center', marginTop: 40 }}>No hay productos disponibles por ahora.</p>;
+export default function ProductList({ products }: { products: any[] }) {
+  if (!products || products.length === 0) {
+    return <p style={{ textAlign: 'center', color: '#aaa' }}>No hay productos disponibles.</p>;
+  }
 
   return (
     <motion.div
