@@ -19,7 +19,6 @@ export default function AdminProductsPage() {
   const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
-    // 🔄 Cargar productos y categorías
     Promise.all([api.get('/products'), getCategories()])
       .then(([prodRes, cats]) => {
         setProducts(prodRes.data);
@@ -29,7 +28,6 @@ export default function AdminProductsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // 🔍 Filtros y ordenamiento
   const filtered = products
     .filter((p) =>
       [p.name, p.description].some((field) =>
@@ -92,7 +90,6 @@ export default function AdminProductsPage() {
           Panel administrativo para revisar, modificar o eliminar productos del sistema.
         </p>
 
-        {/* 🔍 Filtros */}
         <div style={{ display: 'flex', gap: 8, margin: '16px 0' }}>
           <input
             className="vr-input"
@@ -123,7 +120,6 @@ export default function AdminProductsPage() {
           </select>
         </div>
 
-        {/* 📋 Tabla de productos */}
         <ProductTable products={filtered} onDelete={handleDelete} showSeller />
       </motion.div>
     </RoleGate>

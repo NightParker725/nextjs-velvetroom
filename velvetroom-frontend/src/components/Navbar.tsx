@@ -23,7 +23,7 @@ export default function Navbar() {
         try {
           const me = await getCurrentUser();
           setUser(me);
-          localStorage.setItem('vr_user', JSON.stringify(me)); // 🔄 asegurar persistencia
+          localStorage.setItem('vr_user', JSON.stringify(me));
         } catch (err) {
           console.error('Error obteniendo perfil:', err);
         } finally {

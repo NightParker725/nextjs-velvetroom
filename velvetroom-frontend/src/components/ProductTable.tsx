@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 export default function ProductTable({
   products,
   onDelete,
-  showSeller = false, // 👈 configurable para vista admin
+  showSeller = false,
 }: {
   products: any[];
   onDelete: (id: number) => void;
@@ -65,7 +65,7 @@ export default function ProductTable({
                 background: i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'transparent',
               }}
             >
-              {/* 🖼️ Imagen */}
+
               <td style={tdStyle}>
                 {p.productUrl ? (
                   <img
@@ -98,7 +98,7 @@ export default function ProductTable({
                 )}
               </td>
 
-              {/* 🏷️ Datos */}
+
               <td style={tdStyle}>{p.name}</td>
 
               {showSeller && (
@@ -136,7 +136,7 @@ export default function ProductTable({
                 })}
               </td>
 
-              {/* ⚙️ Acciones */}
+
               <td style={tdStyle}>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <Link href={`/my-products/${p.id}/edit`} className="vr-btn">

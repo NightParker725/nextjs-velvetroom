@@ -5,7 +5,7 @@ export const getMyOrders = () => api.get("/orders").then((r) => r.data);
 export const getOrderById = (id: number) => api.get(`/orders/${id}`).then((r) => r.data);
 
 export function createOrder() {
-  return api.post('/orders', {}); // ✅ Enviar body vacío explícito
+  return api.post('/orders', {});
 }
 
 export const getAllOrders = async () => {

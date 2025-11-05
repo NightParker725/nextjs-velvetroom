@@ -104,7 +104,6 @@ const handleDelete = async (id: number) => {
             ➕ Nuevo producto
           </Link>
         </div>
-              {/* 🔍 Filtros */}
       <div style={{ display: 'flex', gap: 8, margin: '16px 0' }}>
         <input
           className="vr-input"

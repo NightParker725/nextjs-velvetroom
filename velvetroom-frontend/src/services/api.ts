@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-let isRedirecting = false; // ✅ evita loops
+let isRedirecting = false;
 
 api.interceptors.response.use(
   (res) => res,

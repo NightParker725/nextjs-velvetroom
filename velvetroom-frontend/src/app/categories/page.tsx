@@ -106,7 +106,6 @@ export default function CategoriesPage() {
           </button>
         </div>
 
-        {/* 📋 Tabla */}
         <table
           style={{
             width: '100%',
@@ -167,7 +166,6 @@ export default function CategoriesPage() {
           </tbody>
         </table>
 
-        {/* 🪞 Modal flotante */}
         <AnimatePresence>
           {modalOpen && (
             <motion.div

@@ -28,7 +28,7 @@ export default function ProductForm({
     getCategories().then(setCategories);
   }, []);
 
-  // ✅ Cargar datos iniciales si se está editando
+
   useEffect(() => {
     if (initialData) {
       setForm({
@@ -68,7 +68,6 @@ export default function ProductForm({
         Información del producto
       </h2>
 
-      {/* 🏷️ Datos básicos */}
       <div>
         <h3 style={{ marginBottom: 6 }}>Nombre y descripción</h3>
         <input
@@ -89,7 +88,6 @@ export default function ProductForm({
         />
       </div>
 
-      {/* 💰 Precio y stock */}
       <div>
         <h3 style={{ marginBottom: 6 }}>Precio y stock</h3>
         <input
@@ -113,7 +111,6 @@ export default function ProductForm({
         />
       </div>
 
-      {/* 🖼️ Imagen */}
       <div>
         <h3 style={{ marginBottom: 6 }}>Imagen del producto</h3>
         <input
@@ -124,7 +121,6 @@ export default function ProductForm({
           placeholder="URL de imagen (opcional)"
         />
 
-        {/* 👁️ Vista previa dinámica */}
         {form.productUrl && (
           <div
             style={{
@@ -156,7 +152,6 @@ export default function ProductForm({
         )}
       </div>
 
-      {/* 🗂️ Categoría */}
       <div>
         <h3 style={{ marginBottom: 6 }}>Categoría</h3>
         <select
@@ -175,7 +170,6 @@ export default function ProductForm({
         </select>
       </div>
 
-      {/* ⚙️ Estado del producto */}
       <div>
         <h3 style={{ marginBottom: 6 }}>Condición del producto</h3>
         <select

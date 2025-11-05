@@ -19,7 +19,7 @@ export default function CartPage() {
 
     const refresh = () => {
     getCart().then(setCart);
-    refreshCartCount(); // 🔥 actualiza badge de navbar
+    refreshCartCount();
     };
 
 if (!user) {
@@ -124,7 +124,7 @@ if (!user) {
         onClick={handleCheckout}
         style={{ padding: "10px 24px" }}
     >
-        Finalizar compra ✨
+        Finalizar compra
     </button>
     </div>
 

@@ -120,7 +120,6 @@ export default function UsersPage() {
           </button>
         </div>
 
-        {/* 📋 Tabla */}
         <table
           style={{
             width: '100%',
@@ -238,7 +237,6 @@ export default function UsersPage() {
                     onChange={handleChange}
                 />
 
-                {/* 🖼️ Vista previa del avatar */}
                 {form.avatarUrl?.trim() && (
                     <div style={{ textAlign: 'center', marginTop: 8 }}>
                     <img

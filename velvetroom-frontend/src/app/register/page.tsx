@@ -16,7 +16,7 @@ export default function RegisterPage() {
         name: data.name,
         email: data.email,
         password: data.password,
-        address: data.address, // ✅ se envía al backend
+        address: data.address,
       });
       toast.success('Cuenta creada. Inicia sesión.');
       router.push('/login');

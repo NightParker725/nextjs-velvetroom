@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       email: data.email,
       address: data.address,
       role: data.role,
-      avatarUrl: data.avatarUrl, // ✅
+      avatarUrl: data.avatarUrl,
     }));
     setToken(data.token);
     setUser({

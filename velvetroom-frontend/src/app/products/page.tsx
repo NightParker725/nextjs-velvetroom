@@ -58,7 +58,6 @@ export default function ProductsPage() {
       <p style={{ textAlign: 'center', color: '#ccc' }}>
         Explora los artefactos únicos traídos desde las profundidades del Velvet Room.
       </p>
-      {/* 🔍 Filtros */}
       <div style={{ display: 'flex', gap: 8, margin: '16px 0' }}>
         <input
           className="vr-input"
@@ -84,7 +83,6 @@ export default function ProductsPage() {
           <option value="name_desc">Nombre Z–A</option>
         </select>
       </div>
-            {/* 📦 Lista de productos filtrada */}
         <ProductList products={filtered} />
         </motion.div>
         </RoleGate>

@@ -6,7 +6,7 @@ import { useAuth } from './AuthContext';
 
 type CartContextType = {
   count: number;
-  refresh: () => void; // <-- Se podrá llamar después de agregar un item
+  refresh: () => void;
 };
 
 const CartContext = createContext<CartContextType>({

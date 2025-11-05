@@ -4,7 +4,7 @@ export async function registerUser(payload: {
   name: string;
   email: string;
   password: string;
-  address: string; // ✅ nuevo campo obligatorio
+  address: string;
 }) {
   const { data } = await api.post('/auth/register', payload);
   return data;
@@ -23,7 +23,7 @@ export async function getCurrentUser() {
 export function logoutUser() {
   localStorage.removeItem("vr_token");
   localStorage.removeItem("vr_user");
-  window.dispatchEvent(new Event("storage")); // 💡 notifica contexts
+  window.dispatchEvent(new Event("storage"));
 }
 
 export function softLogout() {
@@ -32,6 +32,5 @@ export function softLogout() {
 
   window.dispatchEvent(new Event('auth-logout'));
 
-  // ✅ Redirigir con pantalla especial
   window.location.href = '/unauthorized?type=logout';
 }

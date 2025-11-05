@@ -3,13 +3,13 @@ import React from 'react';
 
 interface Props {
   name?: string;
-  avatarUrl?: string; // ✅ ya puede venir en base64 o url
+  avatarUrl?: string;
   role?: string;
   size?: number;
 }
 
 export default function AvatarBadge({ name = '?', avatarUrl, role, size = 40 }: Props) {
-  // ✅ Si el usuario tiene avatar en string (URL o Base64), úsalo directamente
+
   if (avatarUrl && avatarUrl.trim() !== '') {
     const isBase64 = avatarUrl.startsWith('data:image') || avatarUrl.length > 200;
     return (
@@ -28,7 +28,7 @@ export default function AvatarBadge({ name = '?', avatarUrl, role, size = 40 }: 
     );
   }
 
-  // 🎨 fallback visual si no hay imagen
+
   const color =
     role === 'admin'
       ? '#c0392b'
